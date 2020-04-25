@@ -1,8 +1,7 @@
 // Ivan Rodriguez
 // CSCI 2270 Final Project
 
-#include "LinkedList.hpp"
-#include "BST.hpp"
+#include "HashLin.hpp"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -58,18 +57,18 @@ int main()
     cout << endl;
     printArray(dataB, 0, 100);*/
 
-    // *****************************************************************************************BST Implementation*****************************************************************************************
+    // *****************************************************************************************Linear Hashing Implementation*****************************************************************************************
 
-    BSTree treeA, treeB;
+    HashTableLin HashA, HashB;
     startIndex = 0; endIndex = 99; flag = false;
 
-    // BST Insertion
+    // Linear Hash Insertion
     while (!flag)
     {
         auto start = high_resolution_clock::now();
         for (int i = startIndex; i < endIndex; i++)
         {
-            treeB.insertBST(dataB[i]); //change data between set A and B
+            HashB.insert(dataB[i]); //change data between set A and B
         }
         
         if (endIndex == 40000 - 1)
@@ -86,11 +85,11 @@ int main()
         }
     }
     //cout << insertTime.size() << endl;
-    //treeA.printTree();
+    //HashA.printHashTable();
 
-    startIndex = 0; endIndex = 100; flag = false;
+     startIndex = 0; endIndex = 100; flag = false;
 
-    // BST Search
+    // Linear Probe Hash Search
     while (!flag)
     {
         randIndex.clear();
@@ -102,7 +101,7 @@ int main()
         auto start = high_resolution_clock::now();
         for (int i = 0; i < 100; i++)
         {
-            treeB.searchBST(dataB[randIndex[i]]); // change to dataset A or B
+            HashB.search(dataB[randIndex[i]]); // change to dataset A or B
         }
 
         if (endIndex == 40000)
@@ -118,18 +117,16 @@ int main()
         }
     }
 
-    
-
     // Output times to csv files
     ofstream oFile;
-    oFile.open("insertTimesBST_B.csv"); // change titles between data sets
+    oFile.open("insertTimesHashLin_B.csv"); // change titles between data sets
     for (int i = 0; i < insertTime.size(); i++)
     {
         oFile << insertTime[i] << endl;
     }
     oFile.close();
 
-    oFile.open("searchTimesBST_B.csv"); // change titles between data sets
+    oFile.open("searchTimesHashLin_B.csv"); // change titles between data sets
     for (int i = 0; i < searchTime.size(); i++)
     {
         oFile << searchTime[i] << endl;
