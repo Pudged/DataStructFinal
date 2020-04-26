@@ -1,7 +1,6 @@
 // Ivan Rodriguez
 // CSCI 2270 Final Project
 
-#include "LinkedList.hpp"
 #include "BST.hpp"
 #include <iostream>
 #include <sstream>
@@ -66,24 +65,23 @@ int main()
     // BST Insertion
     while (!flag)
     {
-        auto start = high_resolution_clock::now();
-        for (int i = startIndex; i < endIndex; i++)
-        {
-            treeB.insertBST(dataB[i]); //change data between set A and B
-        }
-        
         if (endIndex == 40000 - 1)
         {
             flag = true;
         }
-        else
+
+        auto start = high_resolution_clock::now();
+        for (int i = startIndex; i < endIndex; i++)
         {
-            auto stop = high_resolution_clock::now();
-            auto duration = duration_cast<microseconds>(stop - start);
-            insertTime.push_back(duration.count()/100.0);
-            startIndex += 100;
-            endIndex += 100;
+            treeA.insertBST(dataA[i]); //change data between set A and B
         }
+        
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        insertTime.push_back(duration.count()/100.0);
+        startIndex += 100;
+        endIndex += 100;
+
     }
     //cout << insertTime.size() << endl;
     //treeA.printTree();
@@ -93,6 +91,11 @@ int main()
     // BST Search
     while (!flag)
     {
+        if (endIndex == 40000)
+        {
+            flag = true;
+        }
+
         randIndex.clear();
         for (int i = 0; i < 100; i++)
         {
@@ -102,34 +105,29 @@ int main()
         auto start = high_resolution_clock::now();
         for (int i = 0; i < 100; i++)
         {
-            treeB.searchBST(dataB[randIndex[i]]); // change to dataset A or B
+            treeA.searchBST(dataA[randIndex[i]]); // change to dataset A or B
         }
 
-        if (endIndex == 40000)
-        {
-            flag = true;
-        }
-        else
-        {
-            auto stop = high_resolution_clock::now();
-            auto duration = duration_cast<microseconds>(stop - start);
-            searchTime.push_back(duration.count()/100.0);
-            endIndex += 100;
-        }
+        
+
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        searchTime.push_back(duration.count()/100.0);
+        endIndex += 100;
     }
 
     
 
     // Output times to csv files
     ofstream oFile;
-    oFile.open("insertTimesBST_B.csv"); // change titles between data sets
+    oFile.open("insertTimesBST_A.csv"); // change titles between data sets
     for (int i = 0; i < insertTime.size(); i++)
     {
         oFile << insertTime[i] << endl;
     }
     oFile.close();
 
-    oFile.open("searchTimesBST_B.csv"); // change titles between data sets
+    oFile.open("searchTimesBST_A.csv"); // change titles between data sets
     for (int i = 0; i < searchTime.size(); i++)
     {
         oFile << searchTime[i] << endl;

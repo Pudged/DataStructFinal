@@ -6,44 +6,44 @@
 
 using namespace std;
 
-struct HashNodeLin
+struct HashNodeQuad
 {
     int key;
 
-    HashNodeLin()
+    HashNodeQuad()
     {
         key = 0;
     }
 
-    HashNodeLin(int insertKey)
+    HashNodeQuad(int insertKey)
     {
         key = insertKey;
     }
 
-    ~HashNodeLin() {}
+    ~HashNodeQuad() {}
 
 };
 
-class HashTableLin
+class HashTableQuad
 {
-    HashNodeLin **table;
+    HashNodeQuad **table;
     int size;
     
 
     public:
-        HashTableLin()
+        HashTableQuad()
         {
             size = 40009;
             insertCollisions = 0;
             searchCollisions = 0;
-            table = new HashNodeLin * [size];
+            table = new HashNodeQuad * [size];
             for (int i = 0; i < size; i++)
             {
                 table[i] = NULL;
             }
         }
 
-        ~HashTableLin() 
+        ~HashTableQuad() 
         { 
             delete[] table; 
         }

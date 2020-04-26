@@ -1,11 +1,12 @@
-#include "HashLin.hpp"
+#include "HashQuad.hpp"
 
 using namespace std;
 
-void HashTableLin::insert(int key)
+void HashTableQuad::insert(int key)
 {
-    HashNodeLin *node = new HashNodeLin (key);
+    HashNodeQuad *node = new HashNodeQuad (key);
     int index = hashCode(key);
+    int count = 1;
 
     if (table[index] == 0)
     {
@@ -14,7 +15,7 @@ void HashTableLin::insert(int key)
 
     else
     {
-      for (int i = (index + 1) % size; i != index; i = (i + 1) % size)
+      for (int i = (index + count * count) % size; i != index; i = (i + count * count) % size)
       {
         if (table[i] == 0)
         {
@@ -24,6 +25,7 @@ void HashTableLin::insert(int key)
         else if (table[i]->key != key)
         {
           insertCollisions ++;
+          count ++;
         }
       }
       cout << "Can not insert (" << key << ")Table is full" << endl;
@@ -31,7 +33,7 @@ void HashTableLin::insert(int key)
     }
 }
 
-void HashTableLin::search(int searchKey)
+void HashTableQuad::search(int searchKey)
 {
     int index = hashCode(searchKey);
     int count = 0;
@@ -48,22 +50,23 @@ void HashTableLin::search(int searchKey)
       if (table[index]->key != searchKey)
       {
         searchCollisions++;
+        count ++;
       }
       if (table[index]->key == searchKey)
       {
         return;
       }
-      index ++;
+      index = index + count * count;
       index = index % size;
     }
 }
 
-int HashTableLin::hashCode(int k)
+int HashTableQuad::hashCode(int k)
 {
     return k % size;
 }
 
-void HashTableLin::printHashTable()
+void HashTableQuad::printHashTable()
   {
     for (int i = 0; i < size; i++)
     {
