@@ -14,6 +14,7 @@ void HashTable::insert(int key)
 
     else
     {
+        insertCollisions++;
         newNode->next = table[index];
         table[index] = newNode;
     }
@@ -23,21 +24,31 @@ void HashTable::insert(int key)
 void HashTable::search(int key)
 {
     int index = hashCode(key);
-    HashNode *currNode = table[index];
-
-    while (currNode != 0)
+    
+    if (table[index] == 0)
     {
-        if (currNode->key == key)
-        {
-            //cout << "Found" << endl;
-            return;
-        }
+        return;
+    }
 
-        else
+    else
+    {
+        
+        HashNode *currNode = table[index];
+        while(currNode != 0)
         {
-            currNode = currNode->next;
+            if (currNode->key == key)
+            {
+                
+                return;
+            }
+
+            else
+            {
+                searchCollisions++;
+                currNode = currNode->next;
+            }
+            
         }
-        //cout << "Not Found" << endl;  ---- didn't work, always ran lol
         return;
     }
 }

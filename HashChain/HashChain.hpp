@@ -38,6 +38,8 @@ class HashTable
         {
             size = 40009;
             table = new HashNode *[size];
+            insertCollisions = 0;
+            searchCollisions = 0;
 
             for (int i = 0; i < size; i++)
             {
@@ -64,4 +66,6 @@ class HashTable
         void search (int key);
         int hashCode (int k);
         void printHashTable();
+        int insertCollisions;
+        int searchCollisions;
 };

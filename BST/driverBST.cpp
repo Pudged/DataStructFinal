@@ -54,8 +54,8 @@ int main()
     bool flag = false;
     int startIndex = 0, endIndex = 99;
     /*printArray(dataA, 0, 100);
-    cout << endl;
-    printArray(dataB, 0, 100);*/
+    cout << endl;*/
+    printArray(dataB, 0, 40000);
 
     // *****************************************************************************************BST Implementation*****************************************************************************************
 
@@ -73,7 +73,7 @@ int main()
         auto start = high_resolution_clock::now();
         for (int i = startIndex; i < endIndex; i++)
         {
-            treeA.insertBST(dataA[i]); //change data between set A and B
+            treeA.insertBST(dataB[i]); //change data between set A and B
         }
         
         auto stop = high_resolution_clock::now();
@@ -105,7 +105,7 @@ int main()
         auto start = high_resolution_clock::now();
         for (int i = 0; i < 100; i++)
         {
-            treeA.searchBST(dataA[randIndex[i]]); // change to dataset A or B
+            treeA.searchBST(dataB[randIndex[i]]); // change to dataset A or B
         }
 
         
@@ -120,14 +120,14 @@ int main()
 
     // Output times to csv files
     ofstream oFile;
-    oFile.open("insertTimesBST_A.csv"); // change titles between data sets
+    oFile.open("insertTimesBST_B.csv"); // change titles between data sets
     for (int i = 0; i < insertTime.size(); i++)
     {
         oFile << insertTime[i] << endl;
     }
     oFile.close();
 
-    oFile.open("searchTimesBST_A.csv"); // change titles between data sets
+    oFile.open("searchTimesBST_B.csv"); // change titles between data sets
     for (int i = 0; i < searchTime.size(); i++)
     {
         oFile << searchTime[i] << endl;
